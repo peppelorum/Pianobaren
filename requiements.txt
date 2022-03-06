@@ -1,3 +1,2 @@
 evdev; sys_platform == 'linux'
 rpyc
-m3u-maker

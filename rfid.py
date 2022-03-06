@@ -36,20 +36,21 @@ class Device():
             print("RFID scanner is ready....")
             print("Press Control + c to quit.")
             for event in device.read_loop():
-                    # enter into an endeless read-loop
-                    if event.type == ecodes.EV_KEY and event.value == 1:
-                        digit = evdev.ecodes.KEY[event.code]
-                        if digit == 'KEY_ENTER':
-                            # create and dump the tag
-                            tag = "".join(i.strip('KEY_') for i in container)
-                            print(tag)
-                            conn.root.loadtag(tag)
-                            container = []
-                        else:
-                            container.append(digit)
+                # enter into an endeless read-loop
+                if event.type == ecodes.EV_KEY and event.value == 1:
+                    digit = evdev.ecodes.KEY[event.code]
+                    if digit == 'KEY_ENTER':
+                        # create and dump the tag
+                        tag = "".join(i.strip('KEY_') for i in container)
+                        print(tag)
+                        conn.root.loadtag(tag)
+                        container = []
+                    else:
+                        container.append(digit)
 
-        except:
+        except Exception as err:
             # catch all exceptions to be able release the device
+            print(err)
             device.ungrab()
             print('Quitting.')
 
