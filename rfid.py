@@ -30,7 +30,7 @@ class Device():
     @classmethod
     def run(cls):
         device = cls.connect()
-
+        conn = rpyc.connect("localhost", 12345)
         container = []
         try:
             device.grab()
@@ -45,10 +45,9 @@ class Device():
                         # create and dump the tag
                         tag = "".join(i.strip('KEY_') for i in container)
                         print(tag)
-
                         container = []
-
-                        asyncio.run(loadtag(tag))
+                        if tag:
+                            conn.root.loadtag(tag)
                     else:
                         container.append(digit)
 
@@ -57,12 +56,6 @@ class Device():
             print(err)
             device.ungrab()
             print('Quitting.')
-
-
-conn = rpyc.connect("localhost", 12345)
-
-async def loadtag(tag):
-    conn.root.loadtag(tag)
 
 
 Device.run()
