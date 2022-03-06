@@ -45,8 +45,10 @@ class Device():
                         # create and dump the tag
                         tag = "".join(i.strip('KEY_') for i in container)
                         print(tag)
-                        asyncio.run(loadtag(tag))
+
                         container = []
+
+                        asyncio.run(loadtag(tag))
                     else:
                         container.append(digit)
 
