@@ -1,3 +1,4 @@
+import asyncio
 import evdev
 from evdev import categorize, ecodes
 import rpyc
@@ -43,7 +44,7 @@ class Device():
                         # create and dump the tag
                         tag = "".join(i.strip('KEY_') for i in container)
                         print(tag)
-                        conn.root.loadtag(tag)
+                        asyncio.run(conn.root.loadtag(tag))
                         container = []
                     else:
                         container.append(digit)
