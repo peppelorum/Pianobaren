@@ -1,5 +1,6 @@
 import evdev
 from evdev import categorize, ecodes
+import rpyc
 
 class Device():
     name = 'Sycreader RFID Technology Co., Ltd SYC ID&IC USB Reader'
@@ -27,6 +28,7 @@ class Device():
     @classmethod
     def run(cls):
         device = cls.connect()
+        conn = rpyc.connect("localhost", 12345)
         container = []
         try:
             device.grab()
@@ -41,6 +43,7 @@ class Device():
                             # create and dump the tag
                             tag = "".join(i.strip('KEY_') for i in container)
                             print(tag)
+                            conn.root.loadtag(tag)
                             container = []
                         else:
                             container.append(digit)

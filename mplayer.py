@@ -105,7 +105,7 @@ if __name__ == '__main__':
         import readline
         readline.parse_and_bind('tab: complete')
         import rlcompleter
-        mp.loadfile('/Users/peppe/Music/Ripped/House etc/')
+        mp.loadfile('/Users/peppe/Music/Ripped/House etc/Doctor Flake - Lonely Road.mp3')
 
 
         mp.command("volume 50 1")
