@@ -12,3 +12,9 @@ To map rfid tags with a folder to play make a file called config.json and do som
     "0009148262": "/Users/peppe/Music/Ripped/Hiphop/"
 }
 ```
+
+Take note, the rfid takes a second or two to be able to read a new tag, so don't spam it.
+
+Packages needed:
+
+mplayer

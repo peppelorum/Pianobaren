@@ -1,2 +1,4 @@
 evdev; sys_platform == 'linux'
 rpyc
+pydub
+simpleaudio
