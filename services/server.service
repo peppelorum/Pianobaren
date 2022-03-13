@@ -1,0 +1,14 @@
+[Unit]
+Description=Server
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/Pianobaren
+ExecStart=/usr/bin/python3 -u /home/pi/Pianobaren/server.py
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+

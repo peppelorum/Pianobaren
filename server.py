@@ -17,31 +17,49 @@ pitchUp = True
 with open('config.json', 'r') as f:
     playlists = json.load(f)
 
+
 class ServerService(rpyc.Service):
     def on_connect(self, conn):
         self._conn = conn
 
     def exposed_loadtag(self, arg):
-        playlist = playlists[arg]
-        self.exposed_loadfile(playlist)
+        folder = playlists[arg]
+        makeplaylist(arg)
+        playlist = f'{folder}playlist.txt'
+        mp.loadlist(playlist)
+
+        pitch()
 
     def exposed_pitch(self, arg):
         global pitchActive
         pitchActive = arg
-        # print(pitchActive)
 
-    def exposed_loadfile(self, arg):
-        mp3_list = [i for i in os.listdir(arg) if i[-3:] == "mp3"]
-        mp3_list = '\n'.join(mp3_list)
+    def exposed_unload(self):
+        print('unload')
+        stop()
 
-        playlist = f'{arg}playlist.txt'
-        fp = open(playlist, "w")
-        fp.write(mp3_list)
-        fp.close()
 
-        mp.loadlist(playlist)
+def makeplaylist(tag):
+    folder = playlists[tag]
+    mp3_list = [i for i in os.listdir(folder) if i[-3:] == "mp3" or i[-3:] == "wav" or i[-3:] == "m4a"]
+    mp3_list = '\n'.join(mp3_list)
 
-        pitch()
+    playlist = f'{folder}playlist.txt'
+    fp = open(playlist, "w")
+    fp.write(mp3_list)
+    fp.close()
+
+    return playlist
+
+
+def stop():
+    print(1)
+    mp.stop()
+    noise.stop()
+
+    playlistlocation = makeplaylist('unload')
+    noise.loadlist(playlistlocation)
+    noise.play()
 
 
 def pitch():
@@ -67,9 +85,9 @@ def pitch():
             speed = newspeed
 
         mp.command(f'speed_set {speed}')
-        print(mp.get_property('speed'))
+        # print(mp.get_property('speed'))
         print('.')
-        time.sleep(1)
+        # time.sleep(1)
         # await asyncio.sleep(0.01)
 
 
@@ -79,19 +97,15 @@ if __name__ == "__main__":
     MPlayer.populate()
     try:
         mp = MPlayer()
-        # mp.loadlist('/Users/peppe/Music/Ripped/Soul/playlist.txt')
+        noise = MPlayer()
 
-
-        # while True:
-        #     mp.command('speed_incr 0.1')
-        #     time.sleep(1)
-        #     print('.')
-
+        playlistlocation = makeplaylist('noise')
+        noise.loadlist(playlistlocation)
 
         mp.af_add('scaletempo=scale=1.0:speed=pitch');
 
-#
-        # mp.command("volume 50 1")
+        # time.sleep(10)
+        # stop()
 
     finally:
         print('knas')

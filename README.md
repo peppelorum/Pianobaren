@@ -17,4 +17,4 @@ Take note, the rfid takes a second or two to be able to read a new tag, so don't
 
 Packages needed:
 
-mplayer
+sudo apt-get install python-rpi.gpio python3-rpi.gpio mplayer
