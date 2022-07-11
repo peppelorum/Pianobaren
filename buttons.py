@@ -17,4 +17,6 @@ GPIO.add_event_detect(10,GPIO.RISING,callback=unload_cassette) # Setup event on 
 
 message = input("Press enter to quit\n\n") # Run until someone presses enter
 
+print(message)
+
 GPIO.cleanup() # Clean up

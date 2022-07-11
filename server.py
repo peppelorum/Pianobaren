@@ -13,6 +13,8 @@ import json
 
 pitchActive = True
 pitchUp = True
+playlist = ''
+noiseplaylist = ''
 
 with open('config.json', 'r') as f:
     playlists = json.load(f)
@@ -23,12 +25,14 @@ class ServerService(rpyc.Service):
         self._conn = conn
 
     def exposed_loadtag(self, arg):
+        global playlist
         folder = playlists[arg]
-        makeplaylist(arg)
-        playlist = f'{folder}playlist.txt'
-        mp.loadlist(playlist)
+        playlist = makeplaylist(arg)
+        # playlist = f'{folder}playlist.txt'
+        # mp.loadlist(playlist)
+        # mp.stop()
 
-        pitch()
+        # pitch()
 
     def exposed_pitch(self, arg):
         global pitchActive
@@ -36,7 +40,13 @@ class ServerService(rpyc.Service):
 
     def exposed_unload(self):
         print('unload')
-        stop()
+        # unload()
+
+    def exposed_play(self):
+        play()
+
+    def exposed_ff(self):
+        ff()
 
 
 def makeplaylist(tag):
@@ -52,8 +62,20 @@ def makeplaylist(tag):
     return playlist
 
 
+def play():
+    print('play')
+    noise.loadlist(noiseplaylist)
+    mp.loadlist(playlist)
+
+
+def ff():
+    # print('ff')
+    mp.command('speed_set 100')
+    print('hej')
+    print(mp.get_property('speed'))
+
+
 def stop():
-    print(1)
     mp.stop()
     noise.stop()
 
@@ -64,7 +86,7 @@ def stop():
 
 def pitch():
     global pitchUp, pitchActive
-    print('Hello ...')
+    print('Pitch start')
     i = 0
     limitlower = 0.8
     limitupper = 1.2
@@ -76,17 +98,23 @@ def pitch():
             newspeed = speed + random.uniform(-0.1, -0.05)
 
         if newspeed < limitlower:
+            # print('<')
             pitchUp = True
             limitupper = random.uniform(1.1, 1.4)
+            speed = limitlower
+            # speed = newspeed
         elif newspeed > limitupper:
+            # print('>')
             pitchUp = False
             limitlower = random.uniform(0.7, 0.9)
+            speed = limitupper
+            # speed = newspeed
         else:
             speed = newspeed
 
         mp.command(f'speed_set {speed}')
-        # print(mp.get_property('speed'))
-        print('.')
+        # print(mp. get_property('speed'))
+        print(speed)
         # time.sleep(1)
         # await asyncio.sleep(0.01)
 
@@ -99,9 +127,13 @@ if __name__ == "__main__":
         mp = MPlayer()
         noise = MPlayer()
 
-        playlistlocation = makeplaylist('noise')
-        noise.loadlist(playlistlocation)
+        noiseplaylist = makeplaylist('noise')
+        # noise.command('pausing loadlist {}'.format(playlistlocation))
+        # noise.loadlist(playlistlocation)
+        # noise.stop()
 
+
+        # mp.af_add('scaletempo2=max-speed=16')
         mp.af_add('scaletempo=scale=1.0:speed=pitch');
 
         # time.sleep(10)

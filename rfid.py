@@ -1,4 +1,5 @@
 import asyncio
+from email.headerregistry import ContentTransferEncodingHeader
 from json import load
 import evdev
 from evdev import categorize, ecodes
@@ -46,7 +47,9 @@ class Device():
                         tag = "".join(i.strip('KEY_') for i in container)
                         print(tag)
                         container = []
-                        if tag:
+                        if not tag:
+                            continue
+                        else:
                             conn.root.loadtag(tag)
                     else:
                         container.append(digit)
