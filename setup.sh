@@ -3,8 +3,8 @@
 python3 -m venv .venv &
 source .venv/bin/activate &
 pip3 install -r requirements.txt &
-sudo systemctl stop bar.service &
-sudo cp bar.service /etc/systemd/system/bar.service &
+sudo systemctl stop buttons.service &
+sudo cp services/buttons.service /etc/systemd/system/buttons.service &
 sudo systemctl daemon-reload &
-sudo systemctl start bar.service &
-sudo systemctl status bar.service
+sudo systemctl start buttons.service &
+sudo systemctl status buttons.service
