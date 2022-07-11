@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 User=pi
 WorkingDirectory=/home/pi/Pianobaren
-ExecStart=/usr/bin/python3 -u /home/pi/Pianobaren/buttons.py
+ExecStart=/home/pi/Pianobaren/.venv/bin/python3 -u /home/pi/Pianobaren/buttons.py
 RestartSec=5
 
 [Install]
