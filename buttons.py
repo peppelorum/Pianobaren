@@ -1,12 +1,6 @@
 import RPi.GPIO as GPIO
 import rpyc
 
-conn = rpyc.connect("localhost", 12345)
-
-# class Pin():          # leave this empty
-#     def __init__(self):   # constructor function using self
-#         self.physicalPin = None  # variable using self.
-#         self.pin = None  # variable using self
 
 
 # Map of pinouts:
@@ -17,21 +11,25 @@ conn = rpyc.connect("localhost", 12345)
 
 
 def unload_cassette(channel):
+    conn = rpyc.connect("localhost", 12345)
     print("Unload was pushed!")
     unload = rpyc.async_(conn.root.unload)
     unload()
 
 def pitch(channel):
+    conn = rpyc.connect("localhost", 12345)
     print("Pitch was pushed!")
     f = rpyc.async_(conn.root.pitch)
     f()
 
 def play(channel):
+    conn = rpyc.connect("localhost", 12345)
     print("Pitch was pushed!")
     f = rpyc.async_(conn.root.play)
     f()
 
 def stop(channel):
+    conn = rpyc.connect("localhost", 12345)
     print("Pitch was pushed!")
     f = rpyc.async_(conn.root.pitch)
     f()
