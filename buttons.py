@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import rpyc
+from time import sleep
 
 
 
@@ -8,13 +9,25 @@ import rpyc
 # 5 = 29, pitch
 # 6 = 31, play
 # 12 = 32, stop
+# 17 = 11, servo
 
+
+def setAngle(angle):
+    global pwm
+    duty = angle / 18 + 2
+    GPIO.output(11, True)
+    pwm.ChangeDutyCycle(duty)
+    sleep(1)
+    GPIO.output(11, False)
+    pwm.ChangeDutyCycle(0)
 
 def unload_cassette(channel):
     conn = rpyc.connect("localhost", 12345)
     print("Unload was pushed!")
-    unload = rpyc.async_(conn.root.unload)
-    unload()
+
+    setAngle(90)
+    # unload = rpyc.async_(conn.root.unload)
+    # unload()
 
 def pitch(channel):
     conn = rpyc.connect("localhost", 12345)
@@ -24,13 +37,13 @@ def pitch(channel):
 
 def play(channel):
     conn = rpyc.connect("localhost", 12345)
-    print("Pitch was pushed!")
+    print("play was pushed!")
     f = rpyc.async_(conn.root.play)
     f()
 
 def stop(channel):
     conn = rpyc.connect("localhost", 12345)
-    print("Pitch was pushed!")
+    print("stop was pushed!")
     f = rpyc.async_(conn.root.pitch)
     f()
 
@@ -39,13 +52,16 @@ GPIO.setmode(GPIO.BOARD) # Use physical pin numbering
 
 
 GPIO.setup(7, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.add_event_detect(7,GPIO.RISING,callback=unload_cassette)
+GPIO.add_event_detect(7,GPIO.RISING,callback=unload_cassette, bouncetime=1500)
 
 GPIO.setup(29, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.add_event_detect(29,GPIO.RISING,callback=pitch)
+GPIO.add_event_detect(29,GPIO.RISING,callback=pitch, bouncetime=1500)
 
 GPIO.setup(31, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.add_event_detect(31,GPIO.RISING,callback=play)
+GPIO.add_event_detect(31,GPIO.RISING,callback=play, bouncetime=1500)
+
+GPIO.setup(11, GPIO.OUT)
+pwm=GPIO.PWM(11, 50)
 
 
 

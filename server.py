@@ -119,12 +119,7 @@ def pitch():
     else:
         mp.command(f'speed_set {speed}')
 
-
-    print(originalPitchValue)
-    print(pitchActive)
-
     while pitchActive != 0:
-
         if originalPitchValue != pitchActive:
             return
 
@@ -134,17 +129,11 @@ def pitch():
             newspeed = speed + random.uniform(-0.1, -0.05)
 
         if newspeed < limitlower:
-            # print('<')
             pitchUp = True
-            limitupper = random.uniform(1.1, 1.4)
             speed = limitlower
-            # speed = newspeed
         elif newspeed > limitupper:
-            # print('>')
             pitchUp = False
-            limitlower = random.uniform(0.7, 0.9)
             speed = limitupper
-            # speed = newspeed
         else:
             speed = newspeed
 
