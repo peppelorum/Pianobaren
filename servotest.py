@@ -15,7 +15,7 @@ if __name__ == "__main__":
 
     GPIO.setup(servo_signal_pin, GPIO.OUT)
     # set pwm signal to 50Hz
-    servo = GPIO.pwm(servo_signal_pin, 50)
+    servo = GPIO.PWM(servo_signal_pin, 50)
     servo.start(0)
 
     # loop from 0 to 180
