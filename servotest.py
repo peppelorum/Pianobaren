@@ -1,4 +1,5 @@
 import RPi.GPIO as GPIO
+from time import sleep
 
 # duty cycle, calibrate if needed
 MIN_DUTY = 5
@@ -22,6 +23,7 @@ if __name__ == "__main__":
     for deg in range(181):
         duty_cycle = deg_to_duty(deg)
         servo.ChangeDutyCycle(duty_cycle)
+        sleep(1)
 
     # cleanup the gpio pins
     GPIO.cleanup()
