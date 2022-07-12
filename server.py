@@ -11,7 +11,7 @@ import asyncio
 import datetime
 import json
 
-pitchActive = True
+pitchActive = 0
 pitchUp = True
 playlist = ''
 noiseplaylist = ''
@@ -28,15 +28,16 @@ class ServerService(rpyc.Service):
         global playlist
         folder = playlists[arg]
         playlist = makeplaylist(arg)
+        print(arg)
         # playlist = f'{folder}playlist.txt'
         # mp.loadlist(playlist)
         # mp.stop()
 
         # pitch()
 
-    def exposed_pitch(self, arg):
-        global pitchActive
-        pitchActive = arg
+    # def exposed_pitch(self, arg):
+    #     global pitchActive
+    #     pitchActive = arg
 
     def exposed_unload(self):
         print('unload')
@@ -47,6 +48,10 @@ class ServerService(rpyc.Service):
 
     def exposed_ff(self):
         ff()
+
+    def exposed_pitch(self):
+        print('pitch')
+        pitchToggle()
 
 
 def makeplaylist(tag):
@@ -83,15 +88,46 @@ def stop():
     noise.loadlist(playlistlocation)
     noise.play()
 
+def pitchToggle():
+    global pitchActive
+
+    if pitchActive == 3:
+        pitchActive = 0
+    else:
+        pitchActive += 1
+
+    print(pitchActive)
+    pitch()
 
 def pitch():
     global pitchUp, pitchActive
     print('Pitch start')
     i = 0
-    limitlower = 0.8
-    limitupper = 1.2
     speed = 1.0
-    while pitchActive:
+
+    originalPitchValue = pitchActive
+
+    if pitchActive == 1:
+        limitlower = 0.9
+        limitupper = 1.1
+    elif pitchActive == 2:
+        limitlower = 0.8
+        limitupper = 1.2
+    elif pitchActive == 3:
+        limitlower = 0.6
+        limitupper = 1.4
+    else:
+        mp.command(f'speed_set {speed}')
+
+
+    print(originalPitchValue)
+    print(pitchActive)
+
+    while pitchActive != 0:
+
+        if originalPitchValue != pitchActive:
+            return
+
         if pitchUp:
             newspeed = speed + random.uniform(0.05, 0.1)
         else:
@@ -114,7 +150,7 @@ def pitch():
 
         mp.command(f'speed_set {speed}')
         # print(mp. get_property('speed'))
-        print(speed)
+        print(pitchActive, speed)
         # time.sleep(1)
         # await asyncio.sleep(0.01)
 
