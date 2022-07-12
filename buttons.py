@@ -24,7 +24,7 @@ def setAngle(angle):
     # pwm.ChangeDutyCycle(0)
 
 def unload_cassette(channel):
-    conn = rpyc.connect("localhost", 12345)
+    # conn = rpyc.connect("localhost", 12345)
     print("Unload was pushed!")
 
     setAngle(90)
@@ -62,8 +62,8 @@ GPIO.add_event_detect(29,GPIO.RISING,callback=pitch, bouncetime=1500)
 GPIO.setup(31, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.add_event_detect(31,GPIO.RISING,callback=play, bouncetime=1500)
 
-GPIO.setup(13, GPIO.OUT)
-pwm=GPIO.PWM(13, 50)
+# GPIO.setup(13, GPIO.OUT)
+# pwm=GPIO.PWM(13, 50)
 
 setAngle(90)
 
