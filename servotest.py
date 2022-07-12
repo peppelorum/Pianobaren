@@ -21,6 +21,7 @@ if __name__ == "__main__":
 
     # loop from 0 to 180
     for deg in range(181):
+        print(deg)
         duty_cycle = deg_to_duty(deg)
         servo.ChangeDutyCycle(duty_cycle)
         sleep(1)
