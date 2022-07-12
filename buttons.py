@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 import rpyc
 from time import sleep
-# from gpiozero import Servo
+from gpiozero import Servo
 
 
 
@@ -14,14 +14,14 @@ from time import sleep
 
 
 def setAngle(angle):
-    # servo = Servo(11)
-    # servo.value = 0.5
-    duty = angle / 18 + 2
-    GPIO.output(13, True)
-    pwm.ChangeDutyCycle(duty)
-    sleep(1)
-    GPIO.output(13, False)
-    pwm.ChangeDutyCycle(0)
+    servo = Servo(22)
+    servo.value = 0.5
+    # duty = angle / 18 + 2
+    # GPIO.output(13, True)
+    # pwm.ChangeDutyCycle(duty)
+    # sleep(1)
+    # GPIO.output(13, False)
+    # pwm.ChangeDutyCycle(0)
 
 def unload_cassette(channel):
     conn = rpyc.connect("localhost", 12345)
