@@ -22,12 +22,17 @@ def main():
     print("Spinning")
 
     # Test the full range of movement. Note only integers are allowed.
-    for x in range(2, 12):
-        servo1.ChangeDutyCycle(x)
-        time.sleep(0.5)
+    # for x in range(2, 12):
+    #     servo1.ChangeDutyCycle(x)
+    #     time.sleep(0.5)
+
+    angle = 90
+    duty = angle / 18 + 2
 
     # Start over and move in bigger, slower movements.
-    servo1.ChangeDutyCycle(2)
+    servo1.ChangeDutyCycle(duty)
+    return
+
     time.sleep(1)
     servo1.ChangeDutyCycle(7)
     time.sleep(1)
