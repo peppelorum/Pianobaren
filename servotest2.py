@@ -29,6 +29,8 @@ def main():
     angle = 90
     duty = angle / 18 + 2
 
+    print(f'{angle}, {duty}')
+
     # Start over and move in bigger, slower movements.
     servo1.ChangeDutyCycle(duty)
     return
