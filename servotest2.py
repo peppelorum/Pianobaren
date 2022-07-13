@@ -12,6 +12,14 @@ PULSE_FREQ = 50
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(OUT_PIN, GPIO.OUT)
 
+# def SetAngle(angle):
+#     duty = angle / 18 + 2
+#     GPIO.output(03, True)
+#     pwm.ChangeDutyCycle(duty)
+#     sleep(1)
+#     GPIO.output(03, False)
+#     pwm.ChangeDutyCycle(0)
+
 
 def main():
     print("Starting")
@@ -29,10 +37,17 @@ def main():
     angle = 90
     duty = angle / 18 + 2
 
+    GPIO.output(OUT_PIN, True)
+    servo1.ChangeDutyCycle(duty)
+    time.sleep(1)
+    GPIO.output(OUT_PIN, False)
+    servo1.ChangeDutyCycle(0)
+
     print(f'{angle}, {duty}')
 
     # Start over and move in bigger, slower movements.
-    servo1.ChangeDutyCycle(duty)
+    # servo1.ChangeDutyCycle(7)
+    # time.sleep(10)
     return
 
     time.sleep(1)
