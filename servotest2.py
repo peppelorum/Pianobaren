@@ -28,6 +28,8 @@ def main():
     GPIO.output(OUT_PIN, True)
     servo1.ChangeDutyCycle(duty)
     time.sleep(1)
+    servo1.ChangeDutyCycle(0)
+    time.sleep(1)
     GPIO.output(OUT_PIN, False)
     servo1.ChangeDutyCycle(0)
 
