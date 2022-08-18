@@ -4,7 +4,7 @@ import rpyc
 
 conn = rpyc.connect("localhost", 12345)
 
-def unload_cassette(channel):
+def unload_cassette():
     print("Button was pushed!")
 
     unload = rpyc.async_(conn.root.unload)

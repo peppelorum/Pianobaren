@@ -41,7 +41,8 @@ class ServerService(rpyc.Service):
 
     def exposed_unload(self):
         print('unload')
-        # unload()
+        stop()
+        unload()
 
     def exposed_play(self):
         play()
@@ -66,6 +67,9 @@ def makeplaylist(tag):
 
     return playlist
 
+
+def unload():
+    print('unload cassette')
 
 def play():
     print('play')
