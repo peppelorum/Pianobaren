@@ -21,8 +21,8 @@ def annan():
     print('annan')
 
 unload_button.when_pressed = unload
-pitch_button.when_prssed = pitch
-annan_button.when_prssed = annan
+pitch_button.when_pressed = pitch
+annan_button.when_pressed = annan
 
 
 pause()
