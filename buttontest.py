@@ -6,13 +6,25 @@ from time import sleep
 from gpiozero import Button
 
 
-button = Button(13)
+unload_button = Button(4)
+pitch_button = Button(13)
+annan_button = Button(15)
 
 
 def unload():
     print('unload')
 
-button.when_pressed = unload
+def pitch():
+    print('pitch')
+
+def annan():
+    print('annan')
+
+unload_button.when_pressed = unload
+pitch_button.when_prssed = pitch
+annan_button.when_prssed = annan
+
+
 pause()
 
 
