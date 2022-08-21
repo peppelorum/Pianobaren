@@ -44,10 +44,10 @@ def play(channel):
     f()
 
 def stop(channel):
-    conn = rpyc.connect("localhost", 12345)
+    # conn = rpyc.connect("localhost", 12345)
     print("stop was pushed!")
-    f = rpyc.async_(conn.root.pitch)
-    f()
+    # f = rpyc.async_(conn.root.pitch)
+    # f()
 
 GPIO.setwarnings(False) # Ignore warning for now
 GPIO.setmode(GPIO.BCM) # Use physical pin numbering
@@ -65,7 +65,7 @@ GPIO.add_event_detect(6,GPIO.RISING,callback=play, bouncetime=1500)
 
 # STOP
 GPIO.setup(12, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.add_event_detect(12,GPIO.RISING,callback=play, bouncetime=1500)
+GPIO.add_event_detect(12,GPIO.RISING,callback=stop, bouncetime=1500)
 
 GPIO.setup(13, GPIO.OUT)
 pwm=GPIO.PWM(13, 50)
