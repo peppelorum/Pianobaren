@@ -44,38 +44,28 @@ def play(channel):
     f()
 
 def stop(channel):
-    # conn = rpyc.connect("localhost", 12345)
+    conn = rpyc.connect("localhost", 12345)
     print("stop was pushed!")
-    # f = rpyc.async_(conn.root.pitch)
-    # f()
-
-def pause(channel):
-    # conn = rpyc.connect("localhost", 12345)
-    print("pause was pushed!")
-    # f = rpyc.async_(conn.root.pitch)
-    # f()
+    f = rpyc.async_(conn.root.pitch)
+    f()
 
 GPIO.setwarnings(False) # Ignore warning for now
-GPIO.setmode(GPIO.BCM) # Use physical pin numbering
+GPIO.setmode(GPIO.BOARD) # Use physical pin numbering
 
 
-GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.add_event_detect(4,GPIO.RISING,callback=unload_cassette, bouncetime=1500)
+GPIO.setup(7, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.add_event_detect(7,GPIO.RISING,callback=unload_cassette, bouncetime=1500)
 
-GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.add_event_detect(5,GPIO.RISING,callback=pitch, bouncetime=1500)
+GPIO.setup(29, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.add_event_detect(29,GPIO.RISING,callback=pitch, bouncetime=1500)
 
 # PLAY
-GPIO.setup(6, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.add_event_detect(6,GPIO.RISING,callback=play, bouncetime=1500)
+GPIO.setup(31, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.add_event_detect(31,GPIO.RISING,callback=play, bouncetime=1500)
 
 # STOP
-GPIO.setup(12, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.add_event_detect(12,GPIO.FALLING,callback=stop, bouncetime=1500)
-
-# PAUSE
-GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.add_event_detect(19,GPIO.FALLING,callback=pause, bouncetime=1500)
+GPIO.setup(32, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.add_event_detect(32,GPIO.RISING,callback=play, bouncetime=1500)
 
 GPIO.setup(13, GPIO.OUT)
 pwm=GPIO.PWM(13, 50)
