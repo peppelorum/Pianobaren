@@ -1,7 +1,7 @@
-import RPi.GPIO as GPIO
+# import RPi.GPIO as GPIO
 import rpyc
 from time import sleep
-from gpiozero import Servo
+from gpiozero import Servo, Button
 
 
 
@@ -13,21 +13,27 @@ from gpiozero import Servo
 # 17 = 11, servo
 
 
+unload_button = Button(4)
+pitch_button = Button(27)
+annan_button = Button(22)
+
+
 def setAngle(angle):
+    pass
     # servo = Servo(22)
     # servo.value = 0.5
-    duty = angle / 18 + 2
-    GPIO.output(13, True)
-    pwm.ChangeDutyCycle(duty)
-    sleep(1)
-    GPIO.output(13, False)
-    pwm.ChangeDutyCycle(0)
+    # duty = angle / 18 + 2
+    # GPIO.output(13, True)
+    # pwm.ChangeDutyCycle(duty)
+    # sleep(1)
+    # GPIO.output(13, False)
+    # pwm.ChangeDutyCycle(0)
 
 def unload_cassette(channel):
     # conn = rpyc.connect("localhost", 12345)
     print("Unload was pushed!")
 
-    setAngle(90)
+    # setAngle(90)
     # unload = rpyc.async_(conn.root.unload)
     # unload()
 
@@ -49,12 +55,12 @@ def stop(channel):
     f = rpyc.async_(conn.root.pitch)
     f()
 
-GPIO.setwarnings(False) # Ignore warning for now
-GPIO.setmode(GPIO.BCM) # Use physical pin numbering
+# GPIO.setwarnings(False) # Ignore warning for now
+# GPIO.setmode(GPIO.BCM) # Use physical pin numbering
 
 
-GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.add_event_detect(4,GPIO.RISING,callback=unload_cassette, bouncetime=1500)
+# GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+# GPIO.add_event_detect(4,GPIO.RISING,callback=unload_cassette, bouncetime=1500)
 
 # GPIO.setup(29, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 # GPIO.add_event_detect(29,GPIO.RISING,callback=pitch, bouncetime=1500)
@@ -62,8 +68,14 @@ GPIO.add_event_detect(4,GPIO.RISING,callback=unload_cassette, bouncetime=1500)
 # GPIO.setup(31, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 # GPIO.add_event_detect(31,GPIO.RISING,callback=play, bouncetime=1500)
 
-GPIO.setup(13, GPIO.OUT)
-pwm=GPIO.PWM(13, 50)
+# GPIO.setup(13, GPIO.OUT)
+# pwm=GPIO.PWM(13, 50)
+
+
+unload_button.when_pressed = unload_cassette
+pitch_button.when_pressed = pitch
+annan_button.when_pressed = stop
+
 
 setAngle(90)
 
@@ -72,4 +84,4 @@ message = input("Press enter to quit\n\n") # Run until someone presses enter
 
 print(message)
 
-GPIO.cleanup() # Clean up
+# GPIO.cleanup() # Clean up
