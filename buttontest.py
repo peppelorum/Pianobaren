@@ -7,8 +7,8 @@ from gpiozero import Button
 
 
 unload_button = Button(4)
-pitch_button = Button(13)
-annan_button = Button(15)
+pitch_button = Button(27)
+annan_button = Button(22)
 
 
 def unload():
