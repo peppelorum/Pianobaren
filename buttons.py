@@ -59,13 +59,8 @@ GPIO.add_event_detect(7,GPIO.RISING,callback=unload_cassette, bouncetime=1500)
 GPIO.setup(29, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.add_event_detect(29,GPIO.RISING,callback=pitch, bouncetime=1500)
 
-# PLAY
 GPIO.setup(31, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.add_event_detect(31,GPIO.RISING,callback=play, bouncetime=1500)
-
-# STOP
-GPIO.setup(32, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.add_event_detect(32,GPIO.RISING,callback=play, bouncetime=1500)
 
 GPIO.setup(13, GPIO.OUT)
 pwm=GPIO.PWM(13, 50)
