@@ -17,10 +17,10 @@ def setAngle(angle):
     # servo = Servo(22)
     # servo.value = 0.5
     duty = angle / 18 + 2
-    GPIO.output(13, True)
+    GPIO.output(33, True)
     pwm.ChangeDutyCycle(duty)
     sleep(1)
-    GPIO.output(13, False)
+    GPIO.output(33, False)
     pwm.ChangeDutyCycle(0)
 
 def unload_cassette(channel):
@@ -62,8 +62,8 @@ GPIO.add_event_detect(29,GPIO.RISING,callback=pitch, bouncetime=1500)
 GPIO.setup(31, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.add_event_detect(31,GPIO.RISING,callback=play, bouncetime=1500)
 
-GPIO.setup(13, GPIO.OUT)
-pwm=GPIO.PWM(13, 50)
+GPIO.setup(33, GPIO.OUT)
+pwm=GPIO.PWM(33, 50)
 
 setAngle(90)
 
