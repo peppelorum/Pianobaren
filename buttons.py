@@ -17,10 +17,10 @@ def setAngle(angle):
     # servo = Servo(22)
     # servo.value = 0.5
     duty = angle / 18 + 2
-    GPIO.output(33, True)
+    GPIO.output(13, True)
     pwm.ChangeDutyCycle(duty)
     sleep(1)
-    GPIO.output(33, False)
+    GPIO.output(13, False)
     pwm.ChangeDutyCycle(0)
 
 def unload_cassette(channel):
@@ -50,20 +50,20 @@ def stop(channel):
     f()
 
 GPIO.setwarnings(False) # Ignore warning for now
-GPIO.setmode(GPIO.BOARD) # Use physical pin numbering
+GPIO.setmode(GPIO.BCM) # Use physical pin numbering
 
 
-GPIO.setup(7, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.add_event_detect(7,GPIO.RISING,callback=unload_cassette, bouncetime=1500)
+GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.add_event_detect(4,GPIO.RISING,callback=unload_cassette, bouncetime=1500)
 
-GPIO.setup(29, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.add_event_detect(29,GPIO.RISING,callback=pitch, bouncetime=1500)
+# GPIO.setup(29, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+# GPIO.add_event_detect(29,GPIO.RISING,callback=pitch, bouncetime=1500)
 
-GPIO.setup(31, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.add_event_detect(31,GPIO.RISING,callback=play, bouncetime=1500)
+# GPIO.setup(31, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+# GPIO.add_event_detect(31,GPIO.RISING,callback=play, bouncetime=1500)
 
-GPIO.setup(33, GPIO.OUT)
-pwm=GPIO.PWM(33, 50)
+GPIO.setup(13, GPIO.OUT)
+pwm=GPIO.PWM(13, 50)
 
 setAngle(90)
 
