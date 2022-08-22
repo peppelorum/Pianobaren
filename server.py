@@ -44,6 +44,10 @@ class ServerService(rpyc.Service):
         stop()
         unload()
 
+    def exposed_unload(self):
+        print('stop')
+        stop()
+
     def exposed_play(self):
         play()
 
@@ -88,9 +92,9 @@ def stop():
     mp.stop()
     noise.stop()
 
-    playlistlocation = makeplaylist('unload')
-    noise.loadlist(playlistlocation)
-    noise.play()
+    # playlistlocation = makeplaylist('unload')
+    # noise.loadlist(playlistlocation)
+    # noise.play()
 
 def pitchToggle():
     global pitchActive
