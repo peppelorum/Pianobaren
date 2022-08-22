@@ -74,7 +74,7 @@ def setAngle():
     # pwm.ChangeDutyCycle(0)
 
 @debounce(1)
-def unload_cassette(channel):
+def unload_cassette():
     # conn = rpyc.connect("localhost", 12345)
     print("Unload was pushed!")
 
