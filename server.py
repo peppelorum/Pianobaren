@@ -10,6 +10,7 @@ import subprocess
 import asyncio
 import datetime
 import json
+import random
 
 pitchActive = 0
 pitchUp = True
@@ -64,6 +65,8 @@ def makeplaylist(tag):
     mp3_list = [i for i in os.listdir(folder) if i[-3:] == "mp3" or i[-3:] == "wav" or i[-3:] == "m4a"]
     mp3_list = '\n'.join(mp3_list)
 
+    random.shuffle(mp3_list)
+
     playlist = f'{folder}playlist.txt'
     fp = open(playlist, "w")
     fp.write(mp3_list)
@@ -91,6 +94,8 @@ def ff():
 def stop():
     mp.stop()
     noise.stop()
+
+    pitchActive = 0
 
     # playlistlocation = makeplaylist('unload')
     # noise.loadlist(playlistlocation)
