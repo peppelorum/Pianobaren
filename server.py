@@ -44,7 +44,7 @@ class ServerService(rpyc.Service):
         stop()
         unload()
 
-    def exposed_unload(self):
+    def exposed_stop(self):
         print('stop')
         stop()
 
