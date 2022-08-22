@@ -15,12 +15,12 @@ from gpiozero import Servo, Button, AngularServo
 
 servo = AngularServo(17, min_angle=-90, max_angle=90)
 
-unload_button = Button(4, bounce_time=1000)
-pitch_button = Button(27, bounce_time=1000)
-annan_button = Button(22, bounce_time=1000)
+unload_button = Button(4, bounce_time=1)
+pitch_button = Button(27, bounce_time=1)
+annan_button = Button(22, bounce_time=1)
 
-play_button = Button(23, bounce_time=1000)
-stop_button = Button(24, bounce_time=1000)
+play_button = Button(23, bounce_time=1)
+stop_button = Button(24, bounce_time=1)
 
 
 def setAngle():
