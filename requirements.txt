@@ -4,3 +4,4 @@ pydub
 simpleaudio
 RPi.GPIO
 gpiozero
+pigpio
