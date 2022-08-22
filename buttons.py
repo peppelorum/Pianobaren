@@ -3,11 +3,11 @@ import rpyc
 from time import sleep
 from gpiozero import Device, Servo, Button, AngularServo
 # from gpiozero.pins.native import NativeFactory
-from gpiozero.pins.pigpio import PiGPIOFactory
+# from gpiozero.pins.pigpio import PiGPIOFactory
 # from gpiozero import Device, LED
 
 # Device.pin_factory = PiGPIOFactory()
-my_factory = PiGPIOFactory()
+# my_factory = PiGPIOFactory()
 
 import debounce
 
@@ -21,7 +21,7 @@ import debounce
 # 17 = 11, servo
 
 
-servo = AngularServo(17, pin_factory=my_factory, min_angle=-90, max_angle=90)
+servo = AngularServo(17, min_angle=-90, max_angle=90)
 
 unload_button = Button(4)
 pitch_button = Button(27)
@@ -41,6 +41,7 @@ def setAngle():
     servo.angle = 45
     sleep(2)
     servo.angle = 90
+    servo.detach()
     sleep(2)
 
     # pass
@@ -94,6 +95,7 @@ stop_button.when_released = stop
 # setAngle(90)
 
 servo.angle = 0
+servo.detach()
 
 
 message = input("Press enter to quit\n\n") # Run until someone presses enter
