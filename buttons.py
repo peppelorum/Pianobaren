@@ -83,7 +83,7 @@ stop_button.when_released = stop
 
 # setAngle(90)
 
-servo.angle(0)
+servo.angle = 0
 
 
 message = input("Press enter to quit\n\n") # Run until someone presses enter
