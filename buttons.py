@@ -62,9 +62,9 @@ def play():
 @debounce(0.2)
 def stop():
     print("stop was activated!")
-    # conn = rpyc.connect("localhost", 12345)
-    # f = rpyc.async_(conn.root.pitch)
-    # f()
+    conn = rpyc.connect("localhost", 12345)
+    f = rpyc.async_(conn.root.stop)
+    f()
 
 
 
