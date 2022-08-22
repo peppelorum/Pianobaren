@@ -25,10 +25,10 @@ servo = AngularServo(17, min_angle=-90, max_angle=180)
 
 unload_button = Button(4)
 pitch_button = Button(27)
-annan_button = Button(22, bounce_time=0.1)
+annan_button = Button(22)
 
-play_button = Button(23, bounce_time=0.1)
-stop_button = Button(24, bounce_time=0.1)
+play_button = Button(23)
+stop_button = Button(24)
 
 @debounce(0.2)
 def unload_cassette():
@@ -51,12 +51,14 @@ def pitch():
     f = rpyc.async_(conn.root.pitch)
     f()
 
+@debounce(0.2)
 def play():
     print("play was pushed!")
     conn = rpyc.connect("localhost", 12345)
     f = rpyc.async_(conn.root.play)
     f()
 
+@debounce(0.2)
 def stop():
     print("stop was activated!")
     # conn = rpyc.connect("localhost", 12345)
