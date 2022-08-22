@@ -26,6 +26,7 @@ servo = AngularServo(17, min_angle=-90, max_angle=180)
 unload_button = Button(4)
 pitch_button = Button(27)
 annan_button = Button(22)
+eject_button = Button(5)
 
 play_button = Button(23)
 stop_button = Button(24)
@@ -71,6 +72,7 @@ unload_button.when_pressed = unload_cassette
 pitch_button.when_pressed = pitch
 play_button.when_pressed = play
 stop_button.when_released = stop
+eject_button.when_released = unload_cassette
 
 
 
