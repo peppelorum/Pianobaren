@@ -73,7 +73,7 @@ def setAngle():
     # GPIO.output(13, False)
     # pwm.ChangeDutyCycle(0)
 
-@debounce(1)
+@debounce(0.2)
 def unload_cassette():
     # conn = rpyc.connect("localhost", 12345)
     print("Unload was pushed!")
