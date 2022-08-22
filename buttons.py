@@ -72,7 +72,8 @@ unload_button.when_pressed = unload_cassette
 pitch_button.when_pressed = pitch
 play_button.when_pressed = play
 stop_button.when_released = stop
-eject_button.when_released = unload_cassette
+eject_button.when_pressed = unload_cassette
+eject_button.when_released = None
 
 
 
