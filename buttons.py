@@ -44,7 +44,7 @@ def debounce(wait_time):
 servo = AngularServo(17, min_angle=-90, max_angle=90)
 
 unload_button = Button(4)
-pitch_button = Button(27, bounce_time=0.1)
+pitch_button = Button(27)
 annan_button = Button(22, bounce_time=0.1)
 
 play_button = Button(23, bounce_time=0.1)
@@ -82,7 +82,8 @@ def unload_cassette():
     # unload = rpyc.async_(conn.root.unload)
     # unload()
 
-def pitch(channel):
+@debounce(0.2)
+def pitch():
     # conn = rpyc.connect("localhost", 12345)
     print("Pitch was pushed!")
     # f = rpyc.async_(conn.root.pitch)
