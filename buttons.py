@@ -59,6 +59,11 @@ def unload_cassette():
     # conn = rpyc.connect("localhost", 12345)
     print("Unload was pushed!")
 
+    servo.angle = 90
+    sleep(1)
+    servo.angle = 0
+    servo.detach()
+
     # setAngle(90)
     # unload = rpyc.async_(conn.root.unload)
     # unload()
