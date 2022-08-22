@@ -9,7 +9,7 @@ from gpiozero import Device, Servo, Button, AngularServo
 # Device.pin_factory = PiGPIOFactory()
 # my_factory = PiGPIOFactory()
 
-import debounce
+from debounce import debounce
 
 
 
