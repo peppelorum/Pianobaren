@@ -1,7 +1,7 @@
 # import RPi.GPIO as GPIO
 import rpyc
 from time import sleep
-from gpiozero import Servo, Button
+from gpiozero import Servo, Button, AngularServo
 
 
 
@@ -13,13 +13,29 @@ from gpiozero import Servo, Button
 # 17 = 11, servo
 
 
-unload_button = Button(4)
-pitch_button = Button(27)
-annan_button = Button(22)
+servo = AngularServo(17, min_angle=-90, max_angle=90)
+
+unload_button = Button(4, bounce_time=1000)
+pitch_button = Button(27, bounce_time=1000)
+annan_button = Button(22, bounce_time=1000)
+
+play_button = Button(23, bounce_time=1000)
+stop_button = Button(24, bounce_time=1000)
 
 
-def setAngle(angle):
-    pass
+def setAngle():
+    servo.angle = -90
+    sleep(2)
+    servo.angle = -45
+    sleep(2)
+    servo.angle = 0
+    sleep(2)
+    servo.angle = 45
+    sleep(2)
+    servo.angle = 90
+    sleep(2)
+
+    # pass
     # servo = Servo(22)
     # servo.value = 0.5
     # duty = angle / 18 + 2
@@ -38,46 +54,36 @@ def unload_cassette(channel):
     # unload()
 
 def pitch(channel):
-    conn = rpyc.connect("localhost", 12345)
+    # conn = rpyc.connect("localhost", 12345)
     print("Pitch was pushed!")
-    f = rpyc.async_(conn.root.pitch)
-    f()
+    # f = rpyc.async_(conn.root.pitch)
+    # f()
 
 def play(channel):
-    conn = rpyc.connect("localhost", 12345)
+    # conn = rpyc.connect("localhost", 12345)
     print("play was pushed!")
-    f = rpyc.async_(conn.root.play)
-    f()
+    # f = rpyc.async_(conn.root.play)
+    # f()
 
 def stop(channel):
-    conn = rpyc.connect("localhost", 12345)
-    print("stop was pushed!")
-    f = rpyc.async_(conn.root.pitch)
-    f()
+    # conn = rpyc.connect("localhost", 12345)
+    print("stop was activated!")
+    # f = rpyc.async_(conn.root.pitch)
+    # f()
 
-# GPIO.setwarnings(False) # Ignore warning for now
-# GPIO.setmode(GPIO.BCM) # Use physical pin numbering
-
-
-# GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-# GPIO.add_event_detect(4,GPIO.RISING,callback=unload_cassette, bouncetime=1500)
-
-# GPIO.setup(29, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-# GPIO.add_event_detect(29,GPIO.RISING,callback=pitch, bouncetime=1500)
-
-# GPIO.setup(31, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-# GPIO.add_event_detect(31,GPIO.RISING,callback=play, bouncetime=1500)
-
-# GPIO.setup(13, GPIO.OUT)
-# pwm=GPIO.PWM(13, 50)
 
 
 unload_button.when_pressed = unload_cassette
 pitch_button.when_pressed = pitch
-annan_button.when_pressed = stop
+play_button.when_pressed = play
+stop_button.when_released = stop
 
 
-setAngle(90)
+
+
+# setAngle(90)
+
+servo.angle(0)
 
 
 message = input("Press enter to quit\n\n") # Run until someone presses enter
