@@ -68,14 +68,14 @@ def stop():
 
 
 @debounce(0.2)
-def next():
+def nest():
     print("next was activated!")
     conn = rpyc.connect("localhost", 12345)
     f = rpyc.async_(conn.root.next)
     f()
 
 
-annan_button.when_pressed = next
+annan_button.when_pressed = nest
 unload_button.when_pressed = unload_cassette
 pitch_button.when_pressed = pitch
 play_button.when_pressed = play
