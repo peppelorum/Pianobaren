@@ -59,6 +59,13 @@ class ServerService(rpyc.Service):
         print('pitch')
         pitchToggle()
 
+    def exposed_nect(self):
+        print('next')
+        next()
+
+
+        # lsof -p $(pidof -s mplayer) 2>/dev/null | grep -E "[0-9]+r.*REG" | grep -oE "[^/]+$"
+
 
 def makeplaylist(tag):
     folder = playlists[tag]
@@ -88,6 +95,10 @@ def ff():
     mp.command('speed_set 100')
     print('hej')
     print(mp.get_property('speed'))
+
+
+def next():
+    mp.command('key_down_event >')
 
 
 def stop():
