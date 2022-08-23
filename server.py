@@ -61,7 +61,7 @@ class ServerService(rpyc.Service):
 
     def exposed_nest(self):
         print('nest')
-        next()
+        nest()
 
 
         # lsof -p $(pidof -s mplayer) 2>/dev/null | grep -E "[0-9]+r.*REG" | grep -oE "[^/]+$"
