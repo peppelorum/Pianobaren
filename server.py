@@ -59,8 +59,8 @@ class ServerService(rpyc.Service):
         print('pitch')
         pitchToggle()
 
-    def exposed_nect(self):
-        print('next')
+    def exposed_nest(self):
+        print('nest')
         next()
 
 
@@ -97,7 +97,7 @@ def ff():
     print(mp.get_property('speed'))
 
 
-def next():
+def nest():
     mp.command('key_down_event >')
 
 

@@ -71,7 +71,7 @@ def stop():
 def nest():
     print("next was activated!")
     conn = rpyc.connect("localhost", 12345)
-    f = rpyc.async_(conn.root.next)
+    f = rpyc.async_(conn.root.nest)
     f()
 
 
