@@ -30,6 +30,7 @@ eject_button = Button(5)
 
 play_button = Button(23)
 stop_button = Button(24)
+ff_button = Button(25)
 
 @debounce(0.2)
 def unload_cassette():
@@ -75,7 +76,7 @@ def nest():
     f()
 
 
-annan_button.when_pressed = nest
+ff_button.when_pressed = nest
 unload_button.when_pressed = unload_cassette
 pitch_button.when_pressed = pitch
 play_button.when_pressed = play
