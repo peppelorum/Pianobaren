@@ -91,3 +91,4 @@ servo.detach()
 
 print('buttons up and running')
 # GPIO.cleanup() # Clean up
+
