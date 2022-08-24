@@ -88,8 +88,8 @@ eject_button.when_pressed = unload_cassette
 servo.angle = 0
 servo.detach()
 
+print('buttons up and running')
 
-message = input("Press enter to quit\n\n") # Run until someone presses enter
 
-print(message)
-
+while True:
+    sleep(10)
