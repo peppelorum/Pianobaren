@@ -98,7 +98,7 @@ def ff():
 
 
 def nest():
-    mp.command('key_down_event RIGHT')
+    mp.command('key_down_event NEXT')
 
 
 def stop():
