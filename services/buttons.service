@@ -1,6 +1,6 @@
 [Unit]
 Description=RFID
-After=network.target
+After=network.target server.service
 
 [Service]
 Type=simple
