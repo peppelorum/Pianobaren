@@ -30,8 +30,6 @@ class Device():
 
     @classmethod
     def run(cls):
-        device = cls.connect()
-        conn = rpyc.connect("localhost", 12345)
         container = []
         try:
             device.grab()
@@ -50,6 +48,8 @@ class Device():
                         if not tag:
                             continue
                         else:
+                            device = cls.connect()
+                            conn = rpyc.connect("localhost", 12345)
                             conn.root.loadtag(tag)
                     else:
                         container.append(digit)
