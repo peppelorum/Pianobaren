@@ -16,4 +16,11 @@ sudo systemctl daemon-reload &
 sudo systemctl start buttons.service &
 sudo systemctl status buttons.service
 
+sudo systemctl stop rfid.service &
+sudo cp services/rfid.service /etc/systemd/system/rfid.service &
+sudo systemctl daemon-reload &
+sudo systemctl start rfid.service &
+sudo systemctl status rfid.service
+
+
 
