@@ -89,6 +89,7 @@ servo.angle = 0
 servo.detach()
 
 
-print('buttons up and running')
-# GPIO.cleanup() # Clean up
+message = input("Press enter to quit\n\n") # Run until someone presses enter
+
+print(message)
 
