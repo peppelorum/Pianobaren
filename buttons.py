@@ -21,13 +21,15 @@ from debounce import debounce
 # 17 = 11, servo
 
 
-servo = AngularServo(17, min_angle=-90, max_angle=180)
+servo = AngularServo(5, min_angle=-90, max_angle=180)
 
-unload_button = Button(4)
-pitch_button = Button(27)
-annan_button = Button(22)
-eject_button = Button(5)
+unload_button = Button(4) #1
+pitch_button = Button(17) #2
+annan_button = Button(18) #3
 
+eject_button = Button(16)
+
+pause_button = Button(22)
 play_button = Button(23)
 stop_button = Button(24)
 ff_button = Button(25)
