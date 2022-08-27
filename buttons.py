@@ -1,7 +1,8 @@
 # import RPi.GPIO as GPIO
 import rpyc
 from time import sleep
-from gpiozero import Device, Servo, Button, AngularServo
+# from gpiozero import Device, Servo, Button, AngularServo
+from gpiozero import Button
 # from gpiozero.pins.native import NativeFactory
 # from gpiozero.pins.pigpio import PiGPIOFactory
 # from gpiozero import Device, LED
@@ -21,7 +22,7 @@ from debounce import debounce
 # 17 = 11, servo
 
 
-servo = AngularServo(5, min_angle=-90, max_angle=180)
+# servo = AngularServo(5, min_angle=-90, max_angle=180)
 
 unload_button = Button(4) #1
 pitch_button = Button(17) #2
@@ -29,24 +30,24 @@ annan_button = Button(18) #3
 
 eject_button = Button(16)
 
-pause_button = Button(22)
+pause_button = Button(2)
 play_button = Button(23)
 stop_button = Button(24)
 ff_button = Button(25)
 
-@debounce(0.2)
-def unload_cassette():
-    print("Unload was pushed!")
+# @debounce(0.2)
+# def unload_cassette():
+#     print("Unload was pushed!")
 
-    servo.angle = 180
-    sleep(2)
-    servo.angle = 0
-    sleep(2)
-    servo.detach()
+#     servo.angle = 180
+#     sleep(2)
+#     servo.angle = 0
+#     sleep(2)
+#     servo.detach()
 
-    conn = rpyc.connect("localhost", 12345)
-    unload = rpyc.async_(conn.root.unload)
-    unload()
+#     conn = rpyc.connect("localhost", 12345)
+#     unload = rpyc.async_(conn.root.unload)
+#     unload()
 
 @debounce(0.2)
 def pitch():
@@ -88,8 +89,8 @@ stop_button.when_released = stop
 
 
 
-servo.angle = 0
-servo.detach()
+# servo.angle = 0
+# servo.detach()
 
 print('buttons up and running')
 
