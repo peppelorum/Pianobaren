@@ -80,7 +80,7 @@ def nest():
 
 
 ff_button.when_pressed = nest
-unload_button.when_pressed = unload_cassette
+# unload_button.when_pressed = unload_cassette
 pitch_button.when_pressed = pitch
 play_button.when_pressed = play
 stop_button.when_released = stop
