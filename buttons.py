@@ -65,7 +65,9 @@ def play():
 @debounce(0.2)
 def stop_button_pretrigger():
     print("stop was activated!")
+    newTimer()
     t.start()
+
 
 def stop():
     print('stop was executed')
@@ -74,6 +76,12 @@ def stop():
     f()
 
 t = threading.Timer(1.0, stop)
+
+def newTimer():
+    global t
+    t = threading.Timer(1.0, stop)
+
+
 
 @debounce(0.2)
 def nest():
