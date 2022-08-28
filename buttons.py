@@ -94,7 +94,7 @@ def stop():
     f = rpyc.async_(conn.root.stop)
     f()
 
-t = threading.Timer(1.0, stop)
+t = threading.Timer(3.0, stop)
 
 def newTimer():
     global t
