@@ -98,7 +98,7 @@ t = threading.Timer(1.0, stop)
 
 def newTimer():
     global t
-    t = threading.Timer(1.0, stop)
+    t = threading.Timer(3.0, stop)
 
 
 
