@@ -70,13 +70,12 @@ def pause():
 
     t.cancel()
     print("pause was pushed!")
+    conn = rpyc.connect("localhost", 12345)
 
     if (pause_state):
         f = rpyc.async_(conn.root.play)
     else:
         f = rpyc.async_(conn.root.stop)
-
-    conn = rpyc.connect("localhost", 12345)
     f()
 
 @debounce(0.2)
