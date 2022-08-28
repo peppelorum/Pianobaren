@@ -62,9 +62,6 @@ def play():
     f = rpyc.async_(conn.root.play)
     f()
 
-
-
-
 @debounce(0.2)
 def stop_button_pretrigger():
     print("stop was activated!")
@@ -83,8 +80,6 @@ def nest():
     t.cancel()
     print("next was activated!")
     print('stop was canceled')
-
-
 
     # (lambda x:(x % 2 and 'odd' or 'even'))(3)
 
