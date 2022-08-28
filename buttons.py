@@ -9,7 +9,17 @@ from gpiozero import Device, Servo, Button, AngularServo
 # Device.pin_factory = PiGPIOFactory()
 # my_factory = PiGPIOFactory()
 
+
+import threading
+
 from debounce import debounce
+
+
+def hello():
+    print('hello, world')
+    sleep(2)
+
+
 
 servo = AngularServo(12, min_angle=-90, max_angle=180)
 
@@ -52,20 +62,39 @@ def play():
     f = rpyc.async_(conn.root.play)
     f()
 
+
+
+
 @debounce(0.2)
-def stop():
+def stop_button_pretrigger():
     print("stop was activated!")
+    t.start()
+
+def stop():
+    print('stop was executed')
     conn = rpyc.connect("localhost", 12345)
     f = rpyc.async_(conn.root.stop)
     f()
 
+t = threading.Timer(1.0, stop)
 
 @debounce(0.2)
 def nest():
+    t.cancel()
     print("next was activated!")
+    print('stop was canceled')
+
+
+
+    # (lambda x:(x % 2 and 'odd' or 'even'))(3)
+
     conn = rpyc.connect("localhost", 12345)
     f = rpyc.async_(conn.root.nest)
     f()
+
+# var = 'something'
+# if var == 'something':
+#     t.cancel()
 
 
 ff_button.when_pressed = nest
