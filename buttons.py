@@ -54,7 +54,7 @@ def pitch():
     f = rpyc.async_(conn.root.pitch)
     f()
 
-# @debounce(0.2)
+@debounce(0.2)
 def play():
     t.cancel()
     print("play was pushed!")
@@ -62,7 +62,7 @@ def play():
     f = rpyc.async_(conn.root.play)
     f()
 
-# @debounce(0.2)
+@debounce(0.2)
 def pause():
     t.cancel()
     print("pause was pushed!")
@@ -72,7 +72,7 @@ def pause():
     f()
 
 
-# @debounce(0.2)
+@debounce(0.2)
 def unpause():
     t.cancel()
     print("unpause!")
@@ -81,7 +81,7 @@ def unpause():
     f = rpyc.async_(conn.root.play)
     f()
 
-# @debounce(0.2)
+@debounce(0.2)
 def stop_button_pretrigger():
     print("stop was activated!")
     newTimer()
@@ -102,7 +102,7 @@ def newTimer():
 
 
 
-# @debounce(0.2)
+@debounce(0.2)
 def nest():
     t.cancel()
     print("next was activated!")
