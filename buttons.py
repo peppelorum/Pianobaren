@@ -14,6 +14,7 @@ import threading
 
 from debounce import debounce
 
+pause_state = False
 
 def hello():
     print('hello, world')
@@ -64,6 +65,21 @@ def play():
     f()
 
 @debounce(0.2)
+def pause():
+    global pause_state
+
+    t.cancel()
+    print("pause was pushed!")
+
+    if (pause_state):
+        f = rpyc.async_(conn.root.play)
+    else:
+        f = rpyc.async_(conn.root.stop)
+
+    conn = rpyc.connect("localhost", 12345)
+    f()
+
+@debounce(0.2)
 def stop_button_pretrigger():
     print("stop was activated!")
     newTimer()
@@ -104,8 +120,11 @@ def nest():
 ff_button.when_pressed = nest
 unload_button.when_pressed = unload_cassette
 pitch_button.when_pressed = pitch
+
 play_button.when_pressed = play
 stop_button.when_released = stop_button_pretrigger
+pause_button.when_pressed = pause
+
 # eject_button.when_pressed = unload_cassette
 # eject_button.when_released = None
 
