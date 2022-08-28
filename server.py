@@ -69,7 +69,7 @@ class ServerService(rpyc.Service):
 
 def makeplaylist(tag):
     folder = playlists[tag]
-    mp3_list = [i for i in os.listdir(folder) if i[-3:] == "mp3" or i[-3:] == "wav" or i[-3:] == "m4a"]
+    mp3_list = [i for i in os.listdir(folder) if i[-3:] == "mp3" or i[-3:] == "wav" or i[-3:] == "m4a" or i[0] != "."]
     random.shuffle(mp3_list)
     mp3_list = '\n'.join(mp3_list)
 

@@ -1,4 +1,5 @@
 # import RPi.GPIO as GPIO
+import os
 import rpyc
 from time import sleep
 from gpiozero import Device, Servo, Button, AngularServo
@@ -113,10 +114,18 @@ def nest():
     f()
 
 
+@debounce(0.2)
+def shutdown():
+    print("Shutting Down")
+    sleep(5)
+    os.system("sudo shutdown -h now")
+
+
+
 
 unload_button.when_pressed = unload_cassette
 pitch_button.when_pressed = pitch
-annan_button.when_pressed = play
+annan_button.when_pressed = shutdown
 
 play_button.when_pressed = play
 stop_button.when_released = stop_button_pretrigger
