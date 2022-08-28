@@ -4,6 +4,7 @@ from json import load
 import evdev
 from evdev import categorize, ecodes
 import rpyc
+from time import sleep
 
 class Device():
     name = 'Sycreader RFID Technology Co., Ltd SYC ID&IC USB Reader'
@@ -61,4 +62,6 @@ class Device():
             print('Quitting.')
 
 
+
+sleep(10)
 Device.run()
