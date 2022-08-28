@@ -57,6 +57,7 @@ def pitch():
 
 @debounce(0.2)
 def play():
+    t.cancel()
     print("play was pushed!")
     conn = rpyc.connect("localhost", 12345)
     f = rpyc.async_(conn.root.play)
