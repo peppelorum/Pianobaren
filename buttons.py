@@ -54,7 +54,7 @@ def pitch():
     f = rpyc.async_(conn.root.pitch)
     f()
 
-@debounce(0.2)
+# @debounce(0.2)
 def play():
     t.cancel()
     print("play was pushed!")
