@@ -108,36 +108,29 @@ def nest():
     print("next was activated!")
     print('stop was canceled')
 
-    # (lambda x:(x % 2 and 'odd' or 'even'))(3)
-
     conn = rpyc.connect("localhost", 12345)
     f = rpyc.async_(conn.root.nest)
     f()
 
-# var = 'something'
-# if var == 'something':
-#     t.cancel()
 
 
-ff_button.when_pressed = nest
 unload_button.when_pressed = unload_cassette
 pitch_button.when_pressed = pitch
+annan_button.when_pressed = play
 
 play_button.when_pressed = play
 stop_button.when_released = stop_button_pretrigger
+ff_button.when_pressed = nest
 pause_button.when_pressed = pause
 pause_button.when_released = unpause
 
-# eject_button.when_pressed = unload_cassette
+eject_button.when_pressed = unload_cassette
 # eject_button.when_released = None
-
-
 
 servo.angle = 0
 servo.detach()
 
 print('buttons up and running')
-
 
 while True:
     sleep(10)
