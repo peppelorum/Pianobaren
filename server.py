@@ -30,6 +30,8 @@ class ServerService(rpyc.Service):
         folder = playlists[arg]
         playlist = makeplaylist(arg)
         print(arg)
+        pitchToggle()
+        play()
         # playlist = f'{folder}playlist.txt'
         # mp.loadlist(playlist)
         # mp.stop()
