@@ -23,7 +23,7 @@ def hello():
 
 servo = AngularServo(12, min_angle=-90, max_angle=180)
 
-unload_button = Button(4) #1
+restart_service_button = Button(4) #1
 pitch_button = Button(5) #2
 annan_button = Button(6) #3
 
@@ -121,9 +121,14 @@ def shutdown():
     os.system("sudo shutdown -h now")
 
 
+@debounce(0.2)
+def restart_service():
+    os.system('sudo systemctl restart server.service')
 
 
-unload_button.when_pressed = unload_cassette
+
+
+restart_service_button.when_pressed = restart_service
 pitch_button.when_pressed = pitch
 annan_button.when_pressed = shutdown
 
