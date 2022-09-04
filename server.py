@@ -89,6 +89,7 @@ def play():
 
     MPlayer.populate()
     # try:
+    print('mp', mp)
     mp = MPlayer()
     noise = MPlayer()
 
