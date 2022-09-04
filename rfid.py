@@ -33,33 +33,36 @@ class Device():
     def run(cls):
         device = cls.connect()
         container = []
-        try:
-            device.grab()
-            # bind the device to the script
-            print("RFID scanner is ready....")
-            print("Press Control + c to quit.")
-            for event in device.read_loop():
-                # enter into an endeless read-loop
-                if event.type == ecodes.EV_KEY and event.value == 1:
-                    digit = evdev.ecodes.KEY[event.code]
-                    if digit == 'KEY_ENTER':
-                        # create and dump the tag
-                        tag = "".join(i.strip('KEY_') for i in container)
-                        print(tag)
-                        container = []
-                        if not tag:
-                            continue
+        while True:
+            try:
+                device.grab()
+                # bind the device to the script
+                print("RFID scanner is ready....")
+                print("Press Control + c to quit.")
+                for event in device.read_loop():
+                    # enter into an endeless read-loop
+                    if event.type == ecodes.EV_KEY and event.value == 1:
+                        digit = evdev.ecodes.KEY[event.code]
+                        if digit == 'KEY_ENTER':
+                            # create and dump the tag
+                            tag = "".join(i.strip('KEY_') for i in container)
+                            print(tag)
+                            container = []
+                            if not tag:
+                                continue
+                            else:
+                                conn = rpyc.connect("localhost", 12345)
+                                conn.root.loadtag(tag)
                         else:
-                            conn = rpyc.connect("localhost", 12345)
-                            conn.root.loadtag(tag)
-                    else:
-                        container.append(digit)
+                            container.append(digit)
 
-        except Exception as err:
-            # catch all exceptions to be able release the device
-            print(err)
-            device.ungrab()
-            print('Quitting.')
+            except Exception as err:
+                # catch all exceptions to be able release the device
+                print(err)
+                device.ungrab()
+                print('Quitting.')
+
+            sleep(10)
 
 
 
