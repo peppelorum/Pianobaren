@@ -86,25 +86,6 @@ def unload():
 
 def play():
     print('play')
-
-    MPlayer.populate()
-    # try:
-    print('mp', mp)
-    mp = MPlayer()
-    noise = MPlayer()
-
-    # noiseplaylist = makeplaylist('noise')
-    # noise.command('pausing loadlist {}'.format(playlistlocation))
-    # noise.loadlist(playlistlocation)
-    # noise.stop()
-
-
-    # mp.af_add('scaletempo2=max-speed=16')
-    mp.af_add('scaletempo=scale=1.0:speed=pitch');
-
-    # time.sleep(10)
-    # stop()
-
     noise.loadlist(noiseplaylist)
     mp.loadlist(playlist)
 
@@ -123,9 +104,6 @@ def nest():
 def stop():
     mp.stop()
     noise.stop()
-
-    mp.command('quit')
-    noise.command('quit')
 
     pitchActive = 0
 
