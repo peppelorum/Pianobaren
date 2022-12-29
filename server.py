@@ -4,8 +4,10 @@ from signal import pause
 import time
 from traceback import print_list
 import rpyc
-from mplayer import MPlayer
-from rpyc.utils.server import ThreadedServer # or ForkingServer
+
+import mpv
+
+from rpyc.utils.server import ThreadedServer  # or ForkingServer
 import subprocess
 import asyncio
 import datetime
@@ -63,13 +65,13 @@ class ServerService(rpyc.Service):
         print('nest')
         nest()
 
-
         # lsof -p $(pidof -s mplayer) 2>/dev/null | grep -E "[0-9]+r.*REG" | grep -oE "[^/]+$"
 
 
 def makeplaylist(tag):
     folder = playlists[tag]
-    mp3_list = [i for i in os.listdir(folder) if i[-3:] == "mp3" or i[-3:] == "wav" or i[-3:] == "m4a" or i[0] != "."]
+    mp3_list = [i for i in os.listdir(
+        folder) if i[-3:] == "mp3" or i[-3:] == "wav" or i[-3:] == "m4a" or i[0] != "."]
     random.shuffle(mp3_list)
     mp3_list = '\n'.join(mp3_list)
 
@@ -84,21 +86,24 @@ def makeplaylist(tag):
 def unload():
     print('unload cassette')
 
+
 def play():
     print('play')
-    noise.loadlist(noiseplaylist)
-    mp.loadlist(playlist)
+    # noise.loadlist(noiseplaylist)
+    # mpv.
+    mpv.loadlist(playlist)
 
 
 def ff():
     # print('ff')
-    mp.command('speed_set 100')
+    # mp.command('speed_set 100')
     print('hej')
-    print(mp.get_property('speed'))
+    # print(mp.get_property('speed'))
 
 
 def nest():
-    mp.command('pt_step 1')
+    pass
+    # mp.command('pt_step 1')
 
 
 def stop():
@@ -111,6 +116,7 @@ def stop():
     # noise.loadlist(playlistlocation)
     # noise.play()
 
+
 def pitchToggle():
     global pitchActive
 
@@ -121,6 +127,7 @@ def pitchToggle():
 
     print(pitchActive)
     pitch()
+
 
 def pitch():
     global pitchUp, pitchActive
@@ -140,7 +147,8 @@ def pitch():
         limitlower = 0.6
         limitupper = 1.4
     else:
-        mp.command(f'speed_set {speed}')
+        pass
+        # mp.command(f'speed_set {speed}')
 
     while pitchActive != 0:
         if originalPitchValue != pitchActive:
@@ -160,29 +168,48 @@ def pitch():
         else:
             speed = newspeed
 
-        mp.command(f'speed_set {speed}')
+        # print('asd')
+        mp.af = 'rubberband=transients=smooth:pitch=quality:window=short'
+        # mp.af = 'scaletempo=stride=16:overlap=.68:search=10'
+        mp.speed = speed
+        # print('hejsan')
+        # mpv.meta
+        # mpv.af_command('')
+        # mp.command(f'speed_set {speed}')
         # print(mp. get_property('speed'))
         print(pitchActive, speed)
-        # time.sleep(1)
+        time.sleep(0.5)
         # await asyncio.sleep(0.01)
 
 
 if __name__ == "__main__":
-    server = ThreadedServer(ServerService, port = 12345)
+    server = ThreadedServer(ServerService, port=12345)
 
-    MPlayer.populate()
+    # MPlayer.populate()
     try:
-        mp = MPlayer()
-        noise = MPlayer()
+
+        mp = mpv.MPV(input_ipc_server='/tmp/mpvsocket', audio_display='no')
+        noise = mpv.MPV(input_ipc_server='/tmp/mpvnoisesocket',
+                        audio_display='no')
+
+        # mpv.p
+
+        # mp = MPlayer()
+        # noise = MPlayer()
+
+        mp.loadlist('/Users/peppe/Music/Ripped/Hiphop/playlist.txt')
+
+        # mpv.command(play='backward')
+        # mpv.play()
 
         noiseplaylist = makeplaylist('noise')
+        print(noiseplaylist)
         # noise.command('pausing loadlist {}'.format(playlistlocation))
-        # noise.loadlist(playlistlocation)
+        # noise.loadlist(noiseplaylist)
         # noise.stop()
 
-
         # mp.af_add('scaletempo2=max-speed=16')
-        mp.af_add('scaletempo=scale=1.0:speed=pitch');
+        # mp.af_add('scaletempo=scale=1.0:speed=pitch');
 
         # time.sleep(10)
         # stop()

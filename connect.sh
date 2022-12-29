@@ -1,0 +1,1 @@
+echo -e 'connect F3:84:2C:18:CC:13' | bluetoothctl

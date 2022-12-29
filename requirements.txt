@@ -2,6 +2,7 @@ evdev; sys_platform == 'linux'
 rpyc
 pydub
 simpleaudio
-RPi.GPIO
+# RPi.GPIO
 gpiozero
 pigpio
+python-mpv
