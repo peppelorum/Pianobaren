@@ -49,6 +49,7 @@ class ServerService(rpyc.Service):
 
     def exposed_stop(self):
         print('stop')
+        mp.command('')
         stop()
 
     def exposed_play(self):
@@ -185,7 +186,6 @@ def pitch():
 if __name__ == "__main__":
     server = ThreadedServer(ServerService, port=12345)
 
-    # MPlayer.populate()
     try:
 
         mp = mpv.MPV(input_ipc_server='/tmp/mpvsocket', audio_display='no')
@@ -197,13 +197,13 @@ if __name__ == "__main__":
         # mp = MPlayer()
         # noise = MPlayer()
 
-        mp.loadlist('/Users/peppe/Music/Ripped/Hiphop/playlist.txt')
+        # mp.loadlist('/Users/peppe/Music/Ripped/Hiphop/playlist.txt')
 
         # mpv.command(play='backward')
         # mpv.play()
 
-        noiseplaylist = makeplaylist('noise')
-        print(noiseplaylist)
+        # noiseplaylist = makeplaylist('noise')
+        # print(noiseplaylist)
         # noise.command('pausing loadlist {}'.format(playlistlocation))
         # noise.loadlist(noiseplaylist)
         # noise.stop()
